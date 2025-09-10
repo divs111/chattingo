@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: chattingo
+      MYSQL_DATABASE: chattingo_db
+      MYSQL_PASSWORD: admin
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    image: divs11/backend-chattingo:latest
+    container_name: backend
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/chattingo_db
+      SPRING_DATASOURCE_USERNAME: chattingo
+      SPRING_DATASOURCE_PASSWORD: admin
+      JWT_SECRET: mysupersecuresecretkeywith32characters!!
+    ports:
+      - "8080:8080"
+
+  frontend:
+    image: divs11/frontend-chattingo:latest
+    container_name: frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+volumes:
+  mysql_data:
+
