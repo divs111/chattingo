@@ -33,12 +33,12 @@ pipeline {
                     try {
                         sh "trivy fs --exit-code 1 --severity HIGH,CRITICAL ./frontend"
                     } catch (err) {
-                        echo "⚠️ Vulnerabilities detected in frontend. See above logs."
+                        echo "Vulnerabilities detected in frontend. See above logs."
                     }
                     try {
                         sh "trivy fs --exit-code 1 --severity HIGH,CRITICAL ./backend"
                     } catch (err) {
-                        echo "⚠️ Vulnerabilities detected in backend. See above logs."
+                        echo "Vulnerabilities detected in backend. See above logs."
                     }
                 }
             }
@@ -51,12 +51,12 @@ pipeline {
                     try {
                         sh "trivy image --exit-code 1 --severity HIGH,CRITICAL ${DOCKER_FRONTEND}"
                     } catch (err) {
-                        echo "⚠️ Vulnerabilities detected in frontend image."
+                        echo "Vulnerabilities detected in frontend image."
                     }
                     try {
                         sh "trivy image --exit-code 1 --severity HIGH,CRITICAL ${DOCKER_BACKEND}"
                     } catch (err) {
-                        echo "⚠️ Vulnerabilities detected in backend image."
+                        echo "Vulnerabilities detected in backend image."
                     }
                 }
             }
